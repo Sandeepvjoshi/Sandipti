@@ -1,0 +1,100 @@
+name: Deploy शास्त्रम् site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Overrides the top-level `contents: read` for this job only (job-level
+    # permissions replace, not add to, the top-level block) — needed to
+    # push the regenerated dict/ back to main below. The deploy job further
+    # down is untouched and keeps contents: read.
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # scripts/ssengine is the shared-engine submodule (generate_indices.py,
+          # dict_extract.py, dict_render.py, generate_dict.py, mkdocs_hooks.py,
+          # macros_env.py) — without this, scripts/*.py are dangling symlinks.
+          submodules: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs mkdocs-material pyyaml mkdocs-macros-plugin
+
+      - name: Generate indices (docs/ + mkdocs.yml nav)
+        run: python scripts/generate_indices.py
+
+      - name: Generate dict/
+        run: python scripts/generate_dict.py
+
+      - name: Commit dict/ if it changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dict/
+          if git diff --cached --quiet; then
+            echo "dict/ unchanged — nothing to commit"
+          else
+            git commit -m "Regenerate dict/ [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Build site
+        run: mkdocs build --strict
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      # Offline copy: use_directory_urls: false (see
+      # scripts/generate_indices.py's build_mkdocs_static) makes every
+      # page a plain foo.html, so this zip can be downloaded, unzipped on
+      # a phone/tablet, and opened directly from a file browser with no
+      # web server and no internet connection — every link/asset inside
+      # it is a relative file:// path. This is a completely separate
+      # artifact from the Pages deployment above; it's for offline
+      # reading, not for serving the live site.
+      - name: Zip site for offline use
+        run: |
+          cd site
+          zip -r ../shastra-offline.zip .
+
+      - name: Upload offline zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: shastra-offline
+          path: shastra-offline.zip
+          retention-days: 90
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
