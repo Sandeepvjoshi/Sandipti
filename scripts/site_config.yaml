@@ -56,29 +56,10 @@ labels:
   source_column_heading: "मूलम्"      # definitions table column: which text/chapter it's from
   references_heading: "सन्दर्भाः"     # a topic page's "cited from" back-reference list (<topic>)
 
-# Default word used for a chapter's nav label when neither the chapter's
-# own meta.yaml (chapter_name:) nor the text's meta.yaml (chapter_type:)
-# provides one. Per-section fallback lives on each content_sections entry
-# below (default_chapter_word); this is only the last-resort fallback if
-# a section entry omits it too.
 default_chapter_word: "अध्यायः"
 
-# Site-wide default for whether a shloka's pada line breaks are rendered
-# as explicit <br /> tags. .shloka uses white-space: normal (see
-# docs/stylesheets/custom.css), so a plain newline within a shloka's
-# source text collapses to a space unless generate_indices.py puts an
-# explicit line break back in.
-# false (the default if this key is absent): don't inject any — a shloka
-#   renders as running text, only line-wrapped by the browser.
-# true: each pada lands on its own line, exactly like the source.
-# Override per-book in that text's meta.yaml (same key name).
 maintain_shloka_linebreak: true
 
-# Topics — optional; omit this whole key entirely for a site with no
-# topics at all. `dir:` is the repo-root directory topic categories live
-# under (see the module docstring for the full layout); `h1_label:` is
-# both this listing page's own heading AND its home-page card's/nav
-# entry's label.
 topics:
   dir: "topics"
   h1_label: "विषयाः"
@@ -88,6 +69,7 @@ dictionaries:
     folder: sahitya
 
 
+content_root: "contents"
 content_sections:
   # --- Card 1: Sahitya
   - dir: "sahityashastra"
