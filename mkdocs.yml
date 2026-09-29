@@ -8,7 +8,7 @@ nav:
 hooks:
   - scripts/mkdocs_hooks.py
 
-site_name: शास्त्रम्
+site_name: साहित्यशास्त्रम्
 docs_dir: docs
 
 theme:
