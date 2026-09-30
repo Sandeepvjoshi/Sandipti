@@ -141,4 +141,33 @@ This is **bold**, *italics*
 <div align="right">right align</div><br>
 <div align="left">left align</div> (this should not be needed - default)<br>
 
+### Horizontal line
+
+```markdown
+---
+```
+
+three dashes.
+
+## Site Instructions
+
+### Add new book
+
+Say the new book is kavyaprakasha
+
+* Create folder `contents/sahityashastra/mukhya/kavyaprakasha`
+* Create meta.yaml (copy from dhvanyaloka/meta.yaml and edit)
+* Done
+
+### Add new chapter
+
+Say adding chapter 2 in da,
+
+* Create new folder `contents/sahityashastra/mukhya/dhvanyaloka/02`
+* Copy `meta.yaml` `from dhvanyaloka/01` and edit `title`
+* Done
+
+### Adding new section in chapter
+
+Create `.md` file - add `title` and content (add title on top). See other `.md` files.
 
