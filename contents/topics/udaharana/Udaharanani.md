@@ -3,7 +3,7 @@ title: उदाहरणानि (ध्वन्यालोकस्था�
 order: 1
 term_column_heading: "प्रसङ्गः"
 definition_column_heading: "उदाहरणम्"
-source_column_heading: "उपजीवकप्रसङ्गः"
+source_column_heading: "सन्दर्भः"
 ---
 भ्रम धार्मिक विस्रब्धः स शुनकोऽद्य मारितस्तेन ।  
 गोदावरीनदीकूललतागहनवासिना दृप्तसिंहेन ॥
