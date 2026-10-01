@@ -1,7 +1,7 @@
 ---
-title: "पदसङ्ग्रहः"
+title: "व्याकरणविशेषः"
 term_column_heading: "पदम्"
 definition_column_heading: "प्रसङ्गः"
-source_column_heading: "मूलम्"
+source_column_heading: "सूत्रम्"
 ---
 
