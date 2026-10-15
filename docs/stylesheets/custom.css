@@ -476,3 +476,48 @@ body.sv-force-hide .md-typeset .sv-toggleable {
   font-size: 0.75em;
   opacity: 0.55;
 }
+/* १. परिच्छेद जस्टिफाय करणे आणि पहिल्या ओळीला स्पेस (Indent) देणे */
+.md-typeset p {
+  text-align: justify !important;
+  text-indent: 2em !important;
+  margin-bottom: 0.8em;
+}
+
+/* २. सर्व श्लोक सेंटरमध्ये आणणे (कारिका, वृत्ती आणि टीका यांमधील सर्व श्लोक) */
+.md-typeset .shloka,
+.shloka {
+  display: block !important;
+  text-align: center !important;
+  text-indent: 0 !important;      /* श्लोकाला परिच्छेदाची २em स्पेस लागू होऊ नये */
+  margin: 1.5em auto !important;
+  line-height: 1.8 !important;
+  width: 100% !important;
+}
+
+/* श्लोकाच्या आतील ओळींनाही इंडेंट शून्य करून सेंटर ठेवणे */
+.shloka,
+.shloka * {
+  text-align: center !important;
+  text-indent: 0 !important;
+}
+
+/* ३. टीकेची रचना आणि फॉन्ट */
+tika {
+  display: block !important;
+  font-family: var(--sv-devanagari-serif) !important; /* आधीच डिफाइन केलेला सेरिफ फॉन्ट */
+  font-size: 0.95em;
+  margin-top: 1.2em;
+}
+
+/* टीकेच्या आतील मजकूर जस्टिफाय ठेवणे */
+tika p {
+  text-align: justify !important;
+  text-indent: 2em !important;
+}
+
+/* टीकेच्या आतील श्लोक आवर्जून सेंटरमध्येच ठेवणे */
+tika .shloka,
+tika .shloka * {
+  text-align: center !important;
+  text-indent: 0 !important;
+}
