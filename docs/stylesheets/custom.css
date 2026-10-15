@@ -521,3 +521,14 @@ tika .shloka * {
   text-align: center !important;
   text-indent: 0 !important;
 }
+/* सर्व श्लोकांसाठी - सेंटर आणि शून्य स्पेस */
+.md-typeset .shloka,
+.shloka,
+.shloka p,
+.md-typeset .shloka p {
+  display: block !important;
+  text-align: center !important;
+  text-indent: 0 !important;
+  margin: 1.2em auto !important;
+  width: 100% !important;
+}
